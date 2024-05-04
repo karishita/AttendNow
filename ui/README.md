@@ -9,7 +9,7 @@
    
 
 3. **Install Dependencies**:
-  ```
+    ```
      cd ui
      ```
    - Run `npm install` to install project dependencies specified in `package.json`.
