@@ -16,15 +16,15 @@ public class AttendNowApplication {
 
 }
 //hello world API
-@RestController
-@RequestMapping("/api")
-class TestController{
+//@RestController //marks a class as restful controller
+//@RequestMapping("/api")
+//class TestController{
 
-	@GetMapping("/hello")
-	public String hello()
-	{
-		System.out.println("Welcome");
-		return "Hello World from controller";
+	//@GetMapping("/hello")
+	//public String hello()
+	//{
+		//System.out.println("Welcome");
+		//return "Hello World from controller";
 
-	}
-}
+	//}
+//}
