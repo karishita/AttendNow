@@ -1,31 +1,56 @@
 package com.thinkxfactor.attendNow.controllers;
+import java.util.*;
+
 import org.springframework.web.bind.annotation.*;
+
+import com.thinkxfactor.attendNow.domain.Student;
 
 @RestController
 @RequestMapping("/api/student")
 
 public class StudentController {
 
-    @GetMapping("/hello")
-	public String hello()
-	{
-		System.out.println("Welcome");
-		return "Hello World from controller";
+    private List<Student> studentsDb = new ArrayList<>();
 
-	}
 
-    //Get Mapping with a path variable and return a message
-   @GetMapping("/customWelcome/{name}")
-    public String customWelcome(@PathVariable String name)
-    {
-        return "Hello" +name +"Welcome!!";
+    @PostMapping("/add")
+    public Student addStudent(@RequestBody Student student) {
+        student.setId((long) (studentsDb.size() + 1));
+        studentsDb.add(student);
+        return student;
     }
-    
-    //Get Mapping with a query variable and return a message
-   @GetMapping("/customWelcome2")
-   public String customWelcome2(@RequestParam("name") String name)
-   {
-       return "Hello" +name + "Welcome!!";
-   }
 
+    // Read Students
+    @GetMapping("/getAll")
+    public List<Student> getAllStudents() {
+        return studentsDb;
+    }
+
+    // Update Student
+    @PutMapping("/update")
+    public Student updateStudent(@RequestBody Student student) {
+        for (Student std : studentsDb) {
+            if (std.getId().equals(student.getId())) {
+                std.setName(student.getName());
+                std.setEmail(student.getEmail());
+                std.setPhone(student.getPhone());
+                std.setUsername(student.getUsername());
+                std.setPassword(student.getPassword());
+                std.setAddress(student.getAddress());
+                return std;
+            }
+        }
+        return null;
+    }
+
+    // Delete Student
+    @DeleteMapping("/delete/{id}")
+    public void deleteStudent(@PathVariable Long id) {
+        for (Student std : studentsDb) {
+            if (std.getId().equals(id)) {
+                studentsDb.remove(std);
+                break;
+            }
+        }
+    }
 }
